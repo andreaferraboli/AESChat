@@ -134,6 +134,7 @@ public class ChatClient extends Thread{
         jsonObject.put("FileName", fileName);
         jsonObject.put("File", message);
         message = jsonObject.toString();
+        message = AES.encrypt(message, AES.sK);
         client.msgfile(sendTo, name, message);
 
 
