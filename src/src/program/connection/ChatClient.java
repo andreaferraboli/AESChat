@@ -1,6 +1,7 @@
 package program.connection;
 
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.plexus.util.FileUtils;
 import org.json.JSONObject;
 import program.scene.MainMenu;
 import program.scene.MainProgram;
@@ -8,6 +9,7 @@ import program.scene.SecondWindow;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -126,7 +128,7 @@ public class ChatClient extends Thread{
     public static void sendmessagefile(File msg, String sendTo) throws IOException {
 
         JSONObject jsonObject = new JSONObject();
-        byte[] array = method(msg);
+        byte[] array = Files.readAllBytes(msg.toPath());
         String message = new String(array);
         jsonObject.put("File", message);
         message = jsonObject.toString();

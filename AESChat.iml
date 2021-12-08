@@ -10,5 +10,6 @@
     <orderEntry type="library" name="commons-lang3-3" level="project" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="org.json:json:20211205" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-build-plugin:1.4" level="project" />
   </component>
 </module>
