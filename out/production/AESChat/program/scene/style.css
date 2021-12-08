@@ -1,23 +1,26 @@
 menuprincipale,gridchat{
 -fx-alignment: center;
+    -fx-background-color: #000000;
 }
-
+#Pane{
+    -fx-background-color: #000000;
+}
 #inviato{
--fx-background-color: #90ee90;
+-fx-background-color: #790303;
   -fx-text-align: left;
   -fx-text-align: center;
   -fx-font-size: 14px;
   -fx-background-insets: 5 0 0 0;
 }
 #ricevuto{
--fx-background-color: #008B8B;
+-fx-background-color: #790303;
     -fx-text-fill: white;
     -fx-text-align: center;
     -fx-font-size: 14px;
     -fx-background-insets: 5 0 0 0;
 }
 #ricevuto1{
--fx-background-color: #008B8B;
+-fx-background-color: #790303;
 
     -fx-text-fill: white;
     -fx-text-align: center;
@@ -38,7 +41,7 @@ menuprincipale,gridchat{
     -fx-background-insets: 0 5 0 5;
 }
 #buttonMenu{
--fx-background-color: #008B8B;
+-fx-background-color: #790303;
     -fx-text-fill: white;
     -fx-padding: 10px 10px;
     -fx-text-align: center;
@@ -61,9 +64,9 @@ menuprincipale,gridchat{
 -fx-text-fill: white;
 }
 #cerca{
--fx-background-color: #90ee90;
+-fx-background-color: #790303;
 -fx-text-align: center;
--fx-text-fill: black;
+-fx-text-fill: white;
 -fx-background-insets: 0 5 0 5;
 }
 #refresh{
@@ -81,19 +84,23 @@ menuprincipale,gridchat{
     -fx-background-insets:5px;
 }
 #nuovachat{
--fx-background-color: #90ee90;
+-fx-background-color: #ffffff;
 -fx-text-fill: black;
 -fx-background-insets: 0 5 0 5;
 }
 #indietro{
--fx-background-color: #90ee90;
+-fx-background-color: #ffffff;
 }
 #invio{
--fx-background-color: #90ee90;
+-fx-background-color: #790303;
+    -fx-text-fill: white;
 }
 #invio1{
--fx-background-color: #90ee90;
+-fx-background-color: #790303;
 }
 #testo{
 -fx-font-size: 15px;
+}
+#text{
+    -fx-text-fill: white;
 }
