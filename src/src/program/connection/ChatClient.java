@@ -128,8 +128,10 @@ public class ChatClient extends Thread{
     public static void sendmessagefile(File msg, String sendTo) throws IOException {
 
         JSONObject jsonObject = new JSONObject();
+        String fileName = msg.getName();
         byte[] array = Files.readAllBytes(msg.toPath());
         String message = new String(array);
+        jsonObject.put("FileName", fileName);
         jsonObject.put("File", message);
         message = jsonObject.toString();
         client.msgfile(sendTo, name, message);

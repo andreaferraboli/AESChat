@@ -10,10 +10,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 import program.connection.ChatClient;
 
 import java.io.*;
 import java.net.DatagramSocket;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -32,6 +37,9 @@ public class SecondWindow extends Application {
 
         this.nomechat = nomechat;
     }
+
+
+
     public static void showmessage(String gruppo,String sender, String msg) throws FileNotFoundException {
         List<String> userchat = new ArrayList<String>();
         final File folder = new File(MainMenu.pathname);
@@ -131,6 +139,29 @@ public class SecondWindow extends Application {
 
 
     public static void showmessagefile(String gruppo,String sender, String msg) throws FileNotFoundException {
+        File dir = new File("src\\src\\file");
+        dir.mkdirs();
+        JSONObject jsonobject = new JSONObject(msg);
+
+        String fileName = jsonobject.getString("FileName");
+        try {
+            new File(dir, fileName).createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Path path1 = Paths.get("src\\src\\file" + "/" + fileName);
+
+        // set content of file
+        byte[] messageContent = jsonobject.getString("File").getBytes(StandardCharsets.ISO_8859_1);
+
+        try {
+            Files.write(path1, messageContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         List<String> userchat = new ArrayList<String>();
         final File folder = new File(MainMenu.pathname);
         listFiles(folder, userchat);
