@@ -48,6 +48,7 @@ public class ChatClient extends Thread{
             @Override
             public void onMessage(String fromLogin, String login, String msgBody) throws FileNotFoundException {
                 System.out.println(fromLogin+ " You got a message from " + login + ": " + msgBody);
+                msgBody = AES.decrypt(msgBody, AES.sK);
                 if(fromLogin.contains("#")){
                     fromLogin=fromLogin.replace("#","group_" );
                     SecondWindow.refresh=fromLogin;
@@ -93,13 +94,14 @@ public class ChatClient extends Thread{
     }
     public static void sendmessage(String msg, String sendTo) throws IOException {
 
-
+            msg = AES.encrypt(msg, AES.sK);
             client.msg(sendTo, name, msg);
 
 
     }
     public static void sendmessageGroup(String msg, String topic) throws IOException {
         topic = "#" + topic;
+        msg = AES.encrypt(msg, AES.sK);
         client.msg(topic,  msg);
     }
 
