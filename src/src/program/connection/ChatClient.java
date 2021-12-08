@@ -1,6 +1,7 @@
 package program.connection;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import program.scene.MainMenu;
 import program.scene.MainProgram;
 import program.scene.SecondWindow;
@@ -46,7 +47,7 @@ public class ChatClient extends Thread{
         });
         client.addMessageListeners(new MessageListener() {
             @Override
-            public void onMessage(String fromLogin, String login, String msgBody) throws FileNotFoundException {
+            public void onMessage(String messageType, String fromLogin, String login, String msgBody) throws FileNotFoundException {
                 System.out.println(fromLogin+ " You got a message from " + login + ": " + msgBody);
                 msgBody = AES.decrypt(msgBody, AES.sK);
                 if(fromLogin.contains("#")){
@@ -56,9 +57,10 @@ public class ChatClient extends Thread{
                 else{
                    SecondWindow.refresh=login;
                 }
-
-                SecondWindow.showmessage(fromLogin,login,msgBody);
-
+                if (messageType.equals("msg"))
+                    SecondWindow.showmessage(fromLogin,login,msgBody);
+                else
+                    SecondWindow.showmessagefile(fromLogin,login,msgBody);
 
             }
         });
@@ -97,8 +99,44 @@ public class ChatClient extends Thread{
             msg = AES.encrypt(msg, AES.sK);
             client.msg(sendTo, name, msg);
 
+    }
+
+    public static byte[] method(File file) throws IOException
+    {
+
+        // Creating an object of FileInputStream to
+        // read from a file
+        FileInputStream fl = new FileInputStream(file);
+
+        // Now creating byte array of same length as file
+        byte[] arr = new byte[(int)file.length()];
+
+        // Reading file content to byte array
+        // using standard read() method
+        fl.read(arr);
+
+        // lastly closing an instance of file input stream
+        // to avoid memory leakage
+        fl.close();
+
+        // Returning above byte array
+        return arr;
+    }
+
+    public static void sendmessagefile(File msg, String sendTo) throws IOException {
+
+        JSONObject jsonObject = new JSONObject();
+        byte[] array = method(msg);
+        String message = new String(array);
+        jsonObject.put("File", message);
+        message = jsonObject.toString();
+        client.msgfile(sendTo, name, message);
+
 
     }
+
+
+
     public static void sendmessageGroup(String msg, String topic) throws IOException {
         topic = "#" + topic;
         msg = AES.encrypt(msg, AES.sK);
@@ -112,6 +150,11 @@ public class ChatClient extends Thread{
 
     private void msg(String sendTo, String me, String msgBody) throws IOException {
         String cmd = "msg " + sendTo + " " + me +  " " + msgBody + "\n";
+        serverOut.write(cmd.getBytes());
+    }
+
+    private void msgfile(String sendTo, String me, String msgBody) throws IOException {
+        String cmd = "msgfile " + sendTo + " " + me +  " " + msgBody + "\n";
         serverOut.write(cmd.getBytes());
     }
 
@@ -167,6 +210,10 @@ public class ChatClient extends Thread{
                         String tokensMsg [] = StringUtils.split(line, null, 4);
                         handleMessage(tokensMsg);
                     }
+                    else if ("msgfile".equals(cmd)) {
+                        String tokensMsg [] = StringUtils.split(line, null, 4);
+                        handleMessage(tokensMsg);
+                    }
                 }
             }
 
@@ -184,6 +231,7 @@ public class ChatClient extends Thread{
 
 
     private void handleMessage(String[] tokens) throws FileNotFoundException {
+        String messageType = tokens[0];
         String login = tokens[1];
         String loginFrom = tokens[2];
         String msgBody = tokens[3];
@@ -193,7 +241,7 @@ public class ChatClient extends Thread{
 
         for ( MessageListener listener: messageListeners) {
 
-            listener.onMessage(login, loginFrom, msgBody);
+            listener.onMessage(messageType, login, loginFrom, msgBody);
         }
     }
     public static void GroupCreation(String str) throws IOException {

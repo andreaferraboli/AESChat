@@ -128,6 +128,106 @@ public class SecondWindow extends Application {
             }
         }
     }
+
+
+    public static void showmessagefile(String gruppo,String sender, String msg) throws FileNotFoundException {
+        List<String> userchat = new ArrayList<String>();
+        final File folder = new File(MainMenu.pathname);
+        listFiles(folder, userchat);
+        for (int n = 0; n < userchat.size(); n++) {
+            String namefile = userchat.get(n);
+            if (namefile.startsWith(gruppo) ) {
+                String path = MainMenu.pathname + "\\";
+                FileOutputStream file;
+                if (namefile.contains("group_")) {
+                    try {
+                        file = new FileOutputStream(path + gruppo + ".txt", true);
+                        PrintWriter p1 = new PrintWriter(file);
+                        p1.print("\n" + sender + ":" + msg);
+                        p1.close();
+                        /*
+                        if(nomechat.equals((refresh))){
+                            SecondWindow s2=new SecondWindow(nomechat);
+                            s2.start(MainProgram.commonScene);
+                        }
+
+                         */
+                        Thread thread = new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                Runnable updater = new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        if(nomechat.equals(refresh)) {
+                                            gridpanei++;
+                                            Label mit = new Label(sender);
+                                            mit.setId("ricevutogruppo");
+                                            gridchat.add(mit, 0, gridpanei);
+                                            gridpanei++;
+                                            Button mex = new Button(msg);
+                                            mex.setId("ricevuto1");
+                                            mex.setMinHeight(50.0);
+                                            mex.setMinWidth(200.0);
+                                            mex.setMaxWidth(200.0);
+                                            gridchat.add(mex, 0, gridpanei);
+                                            s1.layout();
+                                            s1.setVvalue(1);
+                                        }
+                                    }
+                                };
+                                Platform.runLater(updater);
+
+                            }
+
+                        });
+                        // don't let thread prevent JVM shutdown
+                        thread.setDaemon(true);
+                        thread.start();
+
+
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+                }
+                n=userchat.size();
+            }
+            else{
+                if(namefile.equals(sender+".txt") && !gruppo.contains("group_")){
+                    n=userchat.size();
+                    String path = MainMenu.pathname + "\\";
+                    FileOutputStream file;
+                    try{
+                        file = new FileOutputStream(path + sender + ".txt", true);
+                        PrintWriter p1 = new PrintWriter(file);
+                        p1.print("\n" + sender + ":" + msg);
+                        p1.close();
+                        Platform.runLater(()->{
+                            gridpanei++;
+                            Button mex=new Button(msg);
+                            mex.setId("ricevuto");
+                            mex.setMinHeight(50.0);
+                            mex.setMinWidth(200.0);
+                            mex.setMaxWidth(200.0);
+                            if(nomechat.equals(sender)){
+                                gridchat.add(mex,0,gridpanei);
+                                s1.layout();
+                                s1.setVvalue(1);
+                            }
+
+                        });
+
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+
+                }
+            }
+        }
+    }
+
+
     public void start(Stage stage) throws FileNotFoundException {
         if (nomechat.equals("")) {
             MainMenu prymarystage = new MainMenu();

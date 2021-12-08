@@ -60,6 +60,11 @@ public class ServerWorker extends Thread{
                     String tokensMsg [] = StringUtils.split(line, null, 3);
                     handleMessage(tokensMsg);
                 }
+
+                else if ("msgfile".equalsIgnoreCase(cmd)) {
+                    String tokensMsg [] = StringUtils.split(line, null, 3);
+                    handleMessage(tokensMsg);
+                }
                 else {
                     String msg = "unknown " + cmd + "\n";
                     outputStream.write(msg.getBytes());
@@ -107,7 +112,11 @@ public class ServerWorker extends Thread{
             }
             else {
                 if (worker.getLogin().equals(sendTo)) {
-                    String outMsg = "msg " + sendTo + " " + body + "\n";
+                    String outMsg;
+                    if (tokens[0].equals("msgfile"))
+                         outMsg = "msgfile " + sendTo + " " + body + "\n";
+                    else
+                        outMsg = "msg " + sendTo + " " + body + "\n";
                     worker.send(outMsg);
                 }
             }
