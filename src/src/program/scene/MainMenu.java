@@ -24,7 +24,7 @@ public class MainMenu extends Application {
     public static GridPane menuprincipale = new GridPane();
     public static Window owner;
     public static ArrayList<String> utentiOnline=new ArrayList<>();
-    public static final String pathname = "Chat udp_2/src/filechat";
+    public static final String pathname = "src/src/filechat";
 
 
     @Override
@@ -35,7 +35,7 @@ public class MainMenu extends Application {
 
         //creo un client una sola volta
         if (Counter.counter == 1) {
-            ChatClient client = new ChatClient("95.245.92.55", 6056);
+            ChatClient client = new ChatClient("localhost", 1111);
             client.setClient(client);
             client.start();
         }

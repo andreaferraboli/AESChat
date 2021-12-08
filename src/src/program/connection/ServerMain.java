@@ -7,7 +7,7 @@ public class ServerMain {
     public static ArrayList<String> users=new ArrayList<>();
     public static void main(String args[]) {
 
-        int port = 6056;
+        int port = 1111;
         Server server = new Server(port);
         server.start();
 
