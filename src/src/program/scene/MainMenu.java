@@ -42,7 +42,7 @@ public class MainMenu extends Application {
 
         Scene scena1;
         GridPane root = new GridPane();
-
+        root.setId("Pane");
         root.add(barrasopra,0,1);
         ScrollPane s7=new ScrollPane();
         s7.setContent(menuprincipale);
@@ -101,6 +101,18 @@ public class MainMenu extends Application {
             }
 
         });
+        Button file= new Button("inserisci file dal pc");
+        file.setId("cerca");
+        file.setOnAction(e -> {
+            SceneFile s5=new SceneFile();
+            try {
+                s5.start(stage);
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         Label vuoto=new Label("");
         vuoto.setPrefWidth(50);
         Button newgroup = new Button("new group");
@@ -123,8 +135,8 @@ public class MainMenu extends Application {
         barrasopra.add(newgroup,3,0);
         barrasopra.add(cerca, 0, 0);
         barrasopra.add(newchat, 2, 0);
-        barrasopra.add(vuoto,4,0);
-        barrasopra.add(refresh, 5, 0);
+        barrasopra.add(file, 5, 0);
+        barrasopra.add(refresh, 6, 0);
         barrasopra.setPadding(new Insets(10, 10, 10, 10));
         owner=newchat.getScene().getWindow();
 
