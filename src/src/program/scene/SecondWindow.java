@@ -3,14 +3,13 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONObject;
+import program.connection.AES;
 import program.connection.ChatClient;
 
 import java.io.*;
@@ -307,10 +306,28 @@ public class SecondWindow extends Application {
 
                 invio.setText("");
             });
+            Button fileSender = new Button("scegli file");
+            fileSender.setId("fileSender");
+            fileSender.setOnAction(e -> {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Open Resource File");
+                File f = fileChooser.showOpenDialog(SceneFile.stage);
+
+                if (f == null)
+                    return;
+                invio.setOnAction( t->{
+                    try {
+                        HAndlesubmitbutton(f,nomechat);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+            });
             testo.setPrefWidth(550.0);
             g2.add(testo,0,0);
             invio.setPrefWidth(50.0);
-            g2.add(invio,1,0);
+            g2.add(fileSender,1,0);
+            g2.add(invio,2,0);
              s1=new ScrollPane();
              gridchat.setAlignment(Pos.TOP_CENTER);
              gridchat.setPrefSize(750,300);
@@ -355,6 +372,15 @@ public class SecondWindow extends Application {
             else{
                 ChatClient.sendmessage(messaggio, nomechat);
             }
+
+
+
+
+    }
+    public void HAndlesubmitbutton(File file,String nomechat) throws IOException {
+
+
+            ChatClient.sendmessagefile(file,nomechat);
 
 
 

@@ -1,7 +1,6 @@
 package program.connection;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.plexus.util.FileUtils;
 import org.json.JSONObject;
 import program.scene.MainMenu;
 import program.scene.MainProgram;

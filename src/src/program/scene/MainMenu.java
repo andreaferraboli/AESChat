@@ -35,7 +35,7 @@ public class MainMenu extends Application {
 
         //creo un client una sola volta
         if (Counter.counter == 1) {
-            ChatClient client = new ChatClient("79.12.11.183", 1111);
+            ChatClient client = new ChatClient("localhost", 1111);
             client.setClient(client);
             client.start();
         }
