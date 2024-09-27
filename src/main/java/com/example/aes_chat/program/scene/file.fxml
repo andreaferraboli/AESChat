@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="644.0" stylesheets="@../../../../../../resources/com/example/aes_chat/style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.scene.FileController">
+         <children>
+            <HBox spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onSelectFile" text="Select file" />
+                        <Button mnemonicParsing="false" onAction="#onClearPlain" text="Clear plain" />
+                  <Button mnemonicParsing="false" onAction="#onClearCrypt" text="Clear crypt" />
+                  <Button mnemonicParsing="false" onAction="#unUncrypt" text="&lt;&lt; uncrypt &lt;&lt;" />
+            <Button id="indietro" mnemonicParsing="false" onAction="#Back" text="indietro" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <SplitPane dividerPositions="0.5" layoutX="86.0" layoutY="26.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+               <items>
+                  <AnchorPane>
+               <children>
+                        <TextArea fx:id="plainText" editable="false" layoutY="21.0" prefHeight="393.0" prefWidth="318.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="71.0" layoutY="21.0" text="Plain" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+                  </AnchorPane>
+                  <AnchorPane>
+                     <children>
+                        <TextArea fx:id="cryptText" editable="false" layoutY="21.0" prefHeight="393.0" prefWidth="317.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="15.0" text="Crypt" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
